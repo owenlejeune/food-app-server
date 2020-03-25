@@ -39,9 +39,10 @@ app.get('/get/all', (req, res, next) => {
             res.statusCode = 500;
             res.json({ error: err });
         } else {
+            let len = (results == null) ? 0 : results.length;
             res.statusCode = 200;
             res.json({
-                size: results.length,
+                size: len,
                 results: results
             });
         }
@@ -56,9 +57,10 @@ app.get('/get/type/:foodType', (req, res, next) => {
             res.statusCode = 500;
             res.json({ error: err });
         } else {
+            let len = (results == null) ? 0 : results.length;
             res.statusCode = 200;
             res.json({
-                size: results.length,
+                size: len,
                 results: results
             });
         }
@@ -75,10 +77,7 @@ app.post('/update/quantity', (req, res, next) => {
             res.json({ error: err });
         } else {
             res.statusCode = 200;
-            res.json({
-                size: results.length,
-                results: results
-            });
+            res.json(results);
         }
     });
 });
