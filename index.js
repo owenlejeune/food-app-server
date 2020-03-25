@@ -32,38 +32,31 @@ app.post('/new', (req, res, next) => {
     });
 });
 
-app.get('/get/all', (req, res, next) => {
+function handleDbResults(res, err, results) {
+    if (err) {
+        console.log(err);
+        res.statusCode = 500;
+        res.json({ error: err });
+    } else {
+        let len = (results == null) ? 0 : results.length;
+        res.statusCode = 200;
+        res.json({
+            size: len,
+            results: results
+        });
+    }
+}
+
+app.get('/get/all', (req, res) => {
     Food.find((err, results) => {
-        if (err) {
-            console.log(err);
-            res.statusCode = 500;
-            res.json({ error: err });
-        } else {
-            let len = (results == null) ? 0 : results.length;
-            res.statusCode = 200;
-            res.json({
-                size: len,
-                results: results
-            });
-        }
+        handleDbResults(res, err, results);
     });
 });
 
-app.get('/get/type/:foodType', (req, res, next) => {
+app.get('/get/type/:foodType', (req, res) => {
     let type = req.params.foodType;
     Food.find({ foodType: type }, (err, results) => {
-        if (err) {
-            console.log(err);
-            res.statusCode = 500;
-            res.json({ error: err });
-        } else {
-            let len = (results == null) ? 0 : results.length;
-            res.statusCode = 200;
-            res.json({
-                size: len,
-                results: results
-            });
-        }
+        handleDbResults(res, err, results);
     });
 });
 
