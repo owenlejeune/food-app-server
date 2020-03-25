@@ -8,7 +8,7 @@ let Food = require('./models/food.js');
 let app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/fooddb', { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false });
 
