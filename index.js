@@ -1,6 +1,5 @@
 let express = require('express');
 let bodyParser = require('body-parser');
-let path = require('path');
 let mongoose = require('mongoose');
 
 let Food = require('./models/food.js');
@@ -12,7 +11,7 @@ app.use(bodyParser.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/fooddb', { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false });
 
-app.post('/new', (req, res, next) => {
+app.post('/new', (req, res) => {
     let newFood = new Food({
         name: req.body.name,
         description: req.body.description,
@@ -60,10 +59,12 @@ app.get('/get/type/:foodType', (req, res) => {
     });
 });
 
-app.post('/update/quantity', (req, res, next) => {
-    let id = req.body.id;
-    let nquantity = req.body.quantity;
-    Food.findByIdAndUpdate(id, { quantity: nquantity }, (err, results) => {
+function update(id, field, newval, res) {
+    console.log(`Update ${id} field ${field} with value ${newval}`);
+    let obj = {};
+    obj[field] = newval;
+    console.log(obj);
+    Food.findByIdAndUpdate(id, obj, (err, results) => {
         if (err) {
             console.log(err);
             res.statusCode = 500;
@@ -73,9 +74,33 @@ app.post('/update/quantity', (req, res, next) => {
             res.json(results);
         }
     });
+}
+
+app.post('/update/quantity', (req, res) => {
+    let id = req.body.id;
+    let nquantity = req.body.quantity;
+    update(id, "quantity", nquantity, res);
 });
 
-app.delete('/delete/:id', (req, res, next) => {
+app.post('update/name', (req, res) => {
+    let id = req.body.id;
+    let nname = req.body.name;
+    update(id, "name", nname, res);
+});
+
+app.post('/update/description', (req, res) => {
+    let id = req.body.id;
+    let ndescription = req.body.description;
+    update(id, "description", ndescription, res);
+});
+
+app.post('update/foodtype', (req, res) => {
+    let id = req.body.id;
+    let nfoodtype = req.body.foodtype;
+    update(id, "foodType", nfoodtype, res);
+});
+
+app.delete('/delete/:id', (req, res) => {
     let id = req.params.id;
     Food.findByIdAndDelete(id, (err) => {
         if (err) {
