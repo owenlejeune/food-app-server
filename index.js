@@ -82,7 +82,7 @@ app.post('/update/quantity', (req, res) => {
     update(id, "quantity", nquantity, res);
 });
 
-app.post('update/name', (req, res) => {
+app.post('/update/name', (req, res) => {
     let id = req.body.id;
     let nname = req.body.name;
     update(id, "name", nname, res);
@@ -94,7 +94,7 @@ app.post('/update/description', (req, res) => {
     update(id, "description", ndescription, res);
 });
 
-app.post('update/foodtype', (req, res) => {
+app.post('/update/foodtype', (req, res) => {
     let id = req.body.id;
     let nfoodtype = req.body.foodtype;
     update(id, "foodType", nfoodtype, res);
