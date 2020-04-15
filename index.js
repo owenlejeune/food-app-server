@@ -17,6 +17,7 @@ app.post('/new', (req, res) => {
         name: req.body.name,
         description: req.body.description,
         foodType: req.body.foodType,
+        packageType: req.body.packageType,
         quantity: req.body.quantity
     });
 
@@ -77,6 +78,33 @@ function update(id, field, newval, res) {
     });
 }
 
+app.post('/update', (req, res) => {
+    let id = req.body.id;
+    let nName = req.body.name
+    let nDescription = req.body.description;
+    let nFType = req.body.foodType;
+    let nPType = req.body.packageType;
+    let nQuantity = req.body.quantity;
+
+    let obj = {}
+    obj["name"] = nName;
+    obj["description"] = nDescription;
+    obj["foodType"] = nFType;
+    obj["packageType"] = nPType;
+    obj["quantity"] = nQuantity;
+
+    Food.findById(id, obj, (err, results) => {
+        if (err) {
+            console.log(err)
+            res.statusCode = 500;
+            res.json({error: err})
+        } else {
+            res.statusCode = 200;
+            res.json(results)
+        }
+    })
+})
+
 app.post('/update/quantity', (req, res) => {
     let id = req.body.id;
     let nquantity = req.body.quantity;
@@ -100,6 +128,12 @@ app.post('/update/foodtype', (req, res) => {
     let nfoodtype = req.body.foodtype;
     update(id, "foodType", nfoodtype, res);
 });
+
+app.post('/update/packagetype', (req, res) => {
+    let id = req.body.id;
+    let npackagetype = req.body.packagetype;
+    update(id, "packageType", npackagetype, res);
+})
 
 app.delete('/delete/:id', (req, res) => {
     let id = req.params.id;
