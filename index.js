@@ -1,6 +1,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
+let ip = require('ip')
 
 let Food = require('./models/food.js');
 
@@ -116,5 +117,5 @@ app.delete('/delete/:id', (req, res) => {
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server running at ip ${ip.address()} on port ${port}`);
 });
