@@ -1,0 +1,9 @@
+[Unit]
+Description=Food server
+
+[Service]
+Type=simple
+ExecStart=/home/linuxbrew/.linuxbrew/bin/node /home/owen/Documents/food-app-server/index.js
+
+[Install]
+WantedBy=multi-user.target
