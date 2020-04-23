@@ -93,7 +93,7 @@ app.post('/update', (req, res) => {
     obj["packageType"] = nPType;
     obj["quantity"] = nQuantity;
 
-    Food.findById(id, obj, (err, results) => {
+    Food.findByIdAndUpdate(id, obj, (err, results) => {
         if (err) {
             console.log(err)
             res.statusCode = 500;
