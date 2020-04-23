@@ -79,7 +79,7 @@ function update(id, field, newval, res) {
 }
 
 app.post('/update', (req, res) => {
-    let id = req.body.id;
+    let id = req.body._id;
     let nName = req.body.name
     let nDescription = req.body.description;
     let nFType = req.body.foodType;
@@ -106,31 +106,31 @@ app.post('/update', (req, res) => {
 })
 
 app.post('/update/quantity', (req, res) => {
-    let id = req.body.id;
+    let id = req.body._id;
     let nquantity = req.body.quantity;
     update(id, "quantity", nquantity, res);
 });
 
 app.post('/update/name', (req, res) => {
-    let id = req.body.id;
+    let id = req.body._id;
     let nname = req.body.name;
     update(id, "name", nname, res);
 });
 
 app.post('/update/description', (req, res) => {
-    let id = req.body.id;
+    let id = req.body._id;
     let ndescription = req.body.description;
     update(id, "description", ndescription, res);
 });
 
 app.post('/update/foodtype', (req, res) => {
-    let id = req.body.id;
+    let id = req.body._id;
     let nfoodtype = req.body.foodtype;
     update(id, "foodType", nfoodtype, res);
 });
 
 app.post('/update/packagetype', (req, res) => {
-    let id = req.body.id;
+    let id = req.body._id;
     let npackagetype = req.body.packagetype;
     update(id, "packageType", npackagetype, res);
 })
